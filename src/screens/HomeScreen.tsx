@@ -1,36 +1,59 @@
 // import IonIcon from '@reacticons/ionicons';
-import React from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
+import config from '../services/config';
+
+export const HomeScreen = ({ navigation }: { navigation: any }) => {
+
+  const [categories, setCategories] = useState<Categories[]>([]);
+  const [selectedId, setSelectedId] = useState(0);
+
+  type Categories = {
+    name: string,
+    id: number
+  }
+
+  const option = {
+    headers: { Authorization: `Bearer ${config.token}` },
+  };
+
+  useEffect(() => {
+    axios
+      .get<Categories[]>(config.BASE_URL + 'categories', option)
+      .then(response => {
+        setCategories(response.data.categories);
+      })
+      .catch(e => console.log('error', e));
+  }, []);
+
+  const selectedCategory = categories.find(categoryName => {
+    return product.map(item => item.category === categoryName.name);
+  });
 
 export const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.navigation}>
         <Text style={styles.header}>UPayments Store</Text>
-        {/* <IonIcon style={styles.icon} name="search-sharp" /> */}
-        <View style={styles.a}>
-        <Button
-          onPress={() => Alert.alert('Simple Button pressed')}
-          title="All"
-        />
-        <Button
-          onPress={() => Alert.alert('Simple Button pressed')}
-          title="Accessories"
-        />
-        <Button
-          onPress={() => Alert.alert('Simple Button pressed')}
-          title="Womens-Clothings"
-        />
-         <Button
-          color="white"
-          onPress={() => Alert.alert('Simple Button pressed')}
-          title="Furnitures"
-        />
-         <Button
-          onPress={() => Alert.alert('Simple Button pressed')}
-          title="Electronics"
-        />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.categories}>
+            {categories.map(item => (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  setSelectedId(item.id);
+                  selectedCategory
+                }}
+                key={item.id}
+              >
+                <Text>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
         </View>
+        </ScrollView>
       </View>
       <View style={styles.body}>
         <Text> Home screen</Text>
