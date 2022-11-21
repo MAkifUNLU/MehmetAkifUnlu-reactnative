@@ -1,14 +1,35 @@
 // import IonIcon from '@reacticons/ionicons';
-import React, { ChangeEvent, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
+import config from '../services/config';
 
 export const CreateScreen = () => {
 
   const [productTitle, setProductTitle] = useState('');
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
-  const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState<Categories[]>([]);
+  const [selectedId, setSelectedId] = useState(0);
+
+  const option = {
+    headers: { Authorization: `Bearer ${config.token}` },
+  };
+
+  type Categories = {
+    id: number;
+    name: string;
+  };
+
+  useEffect(() => {
+    axios
+      .get<Categories[]>(config.BASE_URL + 'categories', option)
+      .then(response => {
+        setCategories(response.data.categories);
+      })
+      .catch(e => console.log('error', e));
+  }, []);
 
 
   return (
@@ -46,22 +67,23 @@ export const CreateScreen = () => {
             title="All"
           />
           <Button
-            onPress={() => Alert.alert('Simple Button pressed')}
-            title="Accessories"
-          />
-          <Button
-            onPress={() => Alert.alert('Simple Button pressed')}
-            title="Womens-Clothings"
-          />
-          <Button
-            onPress={() => Alert.alert('Simple Button pressed')}
-            title="Furnitures"
-          />
-          <Button
-            onPress={() => Alert.alert('Simple Button pressed')}
-            title="Electronics"
-          />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.categories}>
+            {categories.map(item => (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  setSelectedId(item.id);
+                }}
+                key={item.id}
+              >
+                <Text>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
         </View>
+        </ScrollView>
         <View style={styles.footer}>
           <Button
             onPress={() => Alert.alert('Simple Button pressed')}
