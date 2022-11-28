@@ -29,14 +29,31 @@ export const DetailScreen = ({route}: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red'
+    backgroundColor: 'white'
   },
   image: {
     flex: 9,
-    backgroundColor: 'rgba(242,242,242,255)',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   detail: {
     flex: 9,
-    backgroundColor: 'cyan',
+    backgroundColor: 'rgba(202, 255, 235, 1)',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40
+  },
+  text: {
+    fontSize: 20
+  },
+  foto: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain'
+  },
+  content: {
+    flexDirection: 'row',
+    justifyContent:'space-evenly',
+    alignItems: 'center'
   },
 })
