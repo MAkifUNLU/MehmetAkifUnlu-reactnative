@@ -1,22 +1,23 @@
 import axios from "axios";
 import config from "../../services/config";
-import { Product } from "../../types";
+import { Product, ProductBody } from "../../types";
 import { PRODUCT_FETCH, PRODUCT_ADD } from "../reducers/ProductReducer";
+import { Thunk } from '../store'
 
-export const fetchProducts = () => (dispatch: (arg0: { type: string; payload: Product; }) => void) => {
+export const fetchProducts = (): Thunk => (dispatch) => {
   axios
-    .get<Product>(config.BASE_URL + 'products', config.options)
+    .get<{ products: Product[] }>(config.BASE_URL + 'products', config.options)
     .then(response => {
-      dispatch({ type: PRODUCT_FETCH, payload: response.data.products as Product })
+      dispatch({ type: PRODUCT_FETCH, payload: response.data.products })
     })
     .catch(e => console.log('error', e));
 }
 
-export const addProduct = () => (dispatch: (arg0: { type: string; payload: Product; }) => void) => {
-    axios
-      .post<Product>(config.BASE_URL + 'products', config.options)
-      .then(response => {
-        dispatch({ type: PRODUCT_ADD, payload: response.data.products})
-      })
-      .catch(e => console.log('error', e));
+export const addProduct = (body: ProductBody): Thunk => dispatch => {
+  axios
+    .post<Product>(config.BASE_URL + 'products', body, config.options)
+    .then(() => {
+      dispatch(fetchProducts())
+    })
+    .catch(e => console.log('error', e.data));
 }
