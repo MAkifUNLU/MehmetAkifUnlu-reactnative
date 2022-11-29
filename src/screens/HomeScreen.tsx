@@ -1,8 +1,4 @@
-// import IonIcon from '@reacticons/ionicons';
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
-import config from '../services/config';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 
 export const HomeScreen = ({ navigation }: { navigation: any }) => {
 
@@ -35,17 +31,27 @@ export const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.navigation}>
-        <Text style={styles.header}>UPayments Store</Text>
+        <Image style={styles.tinyLogo}
+          source={require('../images/UPaymentsStore.png')} />
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.categories}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                setFilteredName('')
+              }}
+            >
+              <Text>
+                All
+              </Text>
+            </TouchableOpacity>
             {categories.map(item => (
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
-                  setSelectedId(item.id);
-                  selectedCategory
+                  setFilteredName(item.name);
                 }}
-                key={item.id}
+                key={item._id}
               >
                 <Text>
                   {item.name}
@@ -58,8 +64,13 @@ export const HomeScreen = () => {
       <View style={styles.body}>
         <Text> Home screen</Text>
       </View>
-      <View style={styles.footer}>
-        <Text> Footer</Text>
+        </ScrollView>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => navigation.navigate('Create')}
+        >
+          <Text style={{ fontSize: 25 }}>+</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -67,33 +78,76 @@ export const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
   },
   navigation: {
     flex: 2,
     flexDirection: 'column',
-    backgroundColor: 'rgba(242,242,242,255)',
+    backgroundColor: 'white',
+  },
+  tinyLogo: {
+    width: '50%',
+    height: '50%',
+    marginTop: 15,
+    marginBottom: -5,
+    resizeMode: 'contain',
+  },
+  categories: {
+    flexDirection: 'row'
+  },
+  button: {
+    padding: 10,
+    backgroundColor: 'rgba(0, 218, 255, 0.7)',
+    borderRadius: 10,
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 10,
   },
   body: {
     flex: 9,
-    backgroundColor: 'rgba(242,242,242,255)',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center'
   },
-  footer: {
+  product: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignContent: 'space-between',
+    flexWrap: 'wrap',
+    padding: 10,
+  },
+  main: {
     flex: 1,
-    backgroundColor: 'cyan',
+    flexDirection: 'column',
+    borderWidth: 1,
+    borderRadius: 15,
+    alignItems: 'stretch',
+    width: 170,
+    height: 190,
+    backgroundColor: 'white',
+    borderColor: '#f2f2f2',
+    elevation: 5,
+    margin: 5,
   },
-  header: {
-    fontSize: 20,
-    marginTop: 40,
-    marginLeft: 20,
+  image: {
+    width: 110,
+    height: 150,
+    resizeMode: 'contain'
   },
-  icon: {
-    fontSize: 40,
-    flexBasis: 40,
+  textBar: {
+    flex: 1,
+    backgroundColor: 'rgba(202, 255, 235, 1)',
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
-  a: {
-    flexDirection: 'row'
+  addButton: {
+    width: 60,
+    height: 60,
+    backgroundColor: 'rgba(0, 218, 255, 1)',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 1,
+    position: 'absolute',
+    top: '85%'
   },
 })

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text, ScrollView, TouchableOpacity } from 'react-native';
 import {useSelector} from 'react-redux'
 import { Product } from '../types';
 
@@ -12,17 +12,20 @@ export const DetailScreen = ({route}: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.image}>
-
             <Image
-              source={{ uri: product.avatar }}
-              style={{width: 100, height: 100}}
+          source={{ uri: product?.avatar }}
+          style={styles.avatar}
             />
-
       </View>
       <View style={styles.detail}>
-
+          <View style={styles.content}>
+          <Text style={{fontSize: 25}}>{product?.name}</Text>
+          <Text style={{fontSize: 20}}>{product?.price} $</Text>  
       </View>
-
+          <ScrollView>
+          <Text style={styles.text}>{product?.description}</Text>
+        </ScrollView>
+      </View>
     </View>
   );
 }
@@ -35,25 +38,25 @@ const styles = StyleSheet.create({
     flex: 9,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   detail: {
     flex: 9,
     backgroundColor: 'rgba(202, 255, 235, 1)',
     borderTopLeftRadius: 40,
-    borderTopRightRadius: 40
-  },
-  text: {
-    fontSize: 20
-  },
-  foto: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain'
+    borderTopRightRadius: 40,
   },
   content: {
     flexDirection: 'row',
     justifyContent:'space-evenly',
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 20,
   },
 })
