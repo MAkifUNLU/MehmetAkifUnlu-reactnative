@@ -1,31 +1,21 @@
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { fetchProducts } from '../store/actions/productActions';
+import { fetchCategories } from '../store/actions/categoryActions';
+import { Category, Product } from '../types';
+import { useAppDispatch, useAppSelector } from '../store/store';
 
 export const HomeScreen = ({ navigation }: { navigation: any }) => {
 
-  const [categories, setCategories] = useState<Categories[]>([]);
-  const [selectedId, setSelectedId] = useState(0);
-
-  type Categories = {
-    name: string,
-    id: number
-  }
-
-  const option = {
-    headers: { Authorization: `Bearer ${config.token}` },
-  };
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    axios
-      .get<Categories[]>(config.BASE_URL + 'categories', option)
-      .then(response => {
-        setCategories(response.data.categories);
-      })
-      .catch(e => console.log('error', e));
+    dispatch(fetchProducts())
+    dispatch(fetchCategories())
   }, []);
 
-  const selectedCategory = categories.find(categoryName => {
-    return product.map(item => item.category === categoryName.name);
-  });
+  const rawProducts: Product[] = useAppSelector(state => state.product.products)
+  const categories: Category[] = useAppSelector(state => state.category.categories)
+
 
 export const HomeScreen = () => {
   return (

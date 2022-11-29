@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { View, StyleSheet, Image, Text, ScrollView, TouchableOpacity } from 'react-native';
-import {useSelector} from 'react-redux'
+import { useAppSelector } from '../store/store';
 import { Product } from '../types';
 
-export const DetailScreen = ({route}: any) => {
+export const DetailScreen = ({ route }: any) => {
+
+  const products: Product[] = useAppSelector(state => state.product.products)
+  
   const id = route.params.id;
-  const products: Product[] = useSelector(state => state.product.products)
   const product = products.find(item => item._id === id)
 
 

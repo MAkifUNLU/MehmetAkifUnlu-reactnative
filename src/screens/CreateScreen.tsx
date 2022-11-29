@@ -1,6 +1,7 @@
 // import IonIcon from '@reacticons/ionicons';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../store/store';
 import { Product, ProductBody } from '../types';
 
 export const CreateScreen = () => {
@@ -12,24 +13,26 @@ export const CreateScreen = () => {
   const [categories, setCategories] = useState<Categories[]>([]);
   const [selectedId, setSelectedId] = useState(0);
 
-  const option = {
-    headers: { Authorization: `Bearer ${config.token}` },
-  };
+  const dispatch = useAppDispatch()
 
-  type Categories = {
-    id: number;
-    name: string;
-  };
+  const categories = useAppSelector(state => state.category.categories)
+  const newPro: Product = useAppSelector(state => state.product.products)
 
   useEffect(() => {
-    axios
-      .get<Categories[]>(config.BASE_URL + 'categories', option)
-      .then(response => {
-        setCategories(response.data.categories);
-      })
-      .catch(e => console.log('error', e));
+    dispatch(fetchCategories())
   }, []);
 
+  const onPress = () => {
+    const bodyParameters: ProductBody = {
+      name: productTitle,
+      price: price,
+      description: description,
+      avatar: link,
+      category: categoryName,
+      developerEmail: 'akif.unlu44@gmail.com',
+    };
+    dispatch(addProduct(bodyParameters))
+  }
 
   return (
     <View>
