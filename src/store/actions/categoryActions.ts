@@ -2,10 +2,11 @@ import axios from "axios";
 import config from "../../services/config";
 import { Category } from "../../types";
 import { CATEGORY_FETCH } from "../reducers/CategoryReducer";
+import { Thunk } from "../store";
 
-export const fetchCategories = () => (dispatch: (arg0: { type: string; payload: any; }) => void) => {
+export const fetchCategories = (): Thunk => (dispatch) => {
   axios
-    .get<Category[]>(config.BASE_URL + 'categories', config.options)
+    .get<{ categories: Category[] }>(config.BASE_URL + 'categories', config.options)
     .then(response => {
       dispatch({ type: CATEGORY_FETCH, payload: response.data.categories });
     })
