@@ -1,16 +1,18 @@
-// import IonIcon from '@reacticons/ionicons';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, SafeAreaView, TextInputBase } from 'react-native';
+import { fetchCategories } from '../store/actions/categoryActions';
+import { addProduct } from '../store/actions/productActions';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { Product, ProductBody } from '../types';
 
-export const CreateScreen = () => {
+export const CreateScreen = ({ navigation }: { navigation: any }) => {
 
+  const [_id, setId] = useState(0);
   const [productTitle, setProductTitle] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
-  const [categories, setCategories] = useState<Categories[]>([]);
+  const [categoryName, setCategoryName] = useState('');
   const [selectedId, setSelectedId] = useState(0);
 
   const dispatch = useAppDispatch()
@@ -72,7 +74,7 @@ export const CreateScreen = () => {
           value={link}
           onChangeText={(text) => setLink(text)}
           style={styles.titleInput}
-          />
+        />
         <Text style={styles.titleText} >Selected Category: {categoryName}</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.categories}>
@@ -90,7 +92,7 @@ export const CreateScreen = () => {
                 </Text>
               </TouchableOpacity>
             ))}
-        </View>
+          </View>
         </ScrollView>
         <View style={styles.footer}>
           <TouchableOpacity

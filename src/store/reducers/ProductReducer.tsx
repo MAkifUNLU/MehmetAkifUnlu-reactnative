@@ -28,7 +28,7 @@ export default (state: any = initialstate, action: Action) => {
             return {
                 products: [...state.products, action.payload],
             }
-            default: 
+        default:
             return state;
     }
 };

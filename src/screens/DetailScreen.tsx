@@ -10,20 +10,19 @@ export const DetailScreen = ({ route }: any) => {
   const id = route.params.id;
   const product = products.find(item => item._id === id)
 
-
   return (
     <View style={styles.container}>
       <View style={styles.image}>
-            <Image
+        <Image
           source={{ uri: product?.avatar }}
           style={styles.avatar}
-            />
+        />
       </View>
-      <View style={styles.detail}>
+      <View style={styles.detail}>      
           <View style={styles.content}>
           <Text style={{fontSize: 25}}>{product?.name}</Text>
           <Text style={{fontSize: 20}}>{product?.price} $</Text>  
-      </View>
+          </View>
           <ScrollView>
           <Text style={styles.text}>{product?.description}</Text>
         </ScrollView>
@@ -34,7 +33,6 @@ export const DetailScreen = ({ route }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
   },
   image: {
     flex: 9,
