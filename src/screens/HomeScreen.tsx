@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { fetchProducts } from '../store/actions/productActions';
 import { fetchCategories } from '../store/actions/categoryActions';
@@ -16,8 +17,12 @@ export const HomeScreen = ({ navigation }: { navigation: any }) => {
   const rawProducts: Product[] = useAppSelector(state => state.product.products)
   const categories: Category[] = useAppSelector(state => state.category.categories)
 
+  const [filteredName, setFilteredName] = useState('');
 
-export const HomeScreen = () => {
+  const products = useMemo(() => {
+    return filteredName ? rawProducts?.filter(item => item.category === filteredName) : rawProducts
+  }, [filteredName, rawProducts.length])
+
   return (
     <View style={styles.container}>
       <View style={styles.navigation}>
