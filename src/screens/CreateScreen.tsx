@@ -1,8 +1,7 @@
 // import IonIcon from '@reacticons/ionicons';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, Alert, ScrollView, TouchableOpacity } from 'react-native';
-import config from '../services/config';
+import { Product, ProductBody } from '../types';
 
 export const CreateScreen = () => {
 
