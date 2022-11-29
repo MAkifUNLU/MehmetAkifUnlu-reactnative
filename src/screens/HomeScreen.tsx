@@ -53,12 +53,36 @@ export const HomeScreen = ({ navigation }: { navigation: any }) => {
                 </Text>
               </TouchableOpacity>
             ))}
-        </View>
+          </View>
         </ScrollView>
       </View>
       <View style={styles.body}>
-        <Text> Home screen</Text>
-      </View>
+        <ScrollView>
+          <View style={styles.product}>
+            {products.map(item => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Detail', { id: item._id })}
+                key={item._id}
+              >
+                <View style={styles.main}>
+                  <View style={{ alignItems: 'center' }}>
+                    <Image
+                      style={styles.image}
+                      source={{ uri: item.avatar }}
+                    />
+                  </View>
+                  <View style={styles.textBar}>
+                    <Text style={{ fontSize: 15 }} numberOfLines={1}>
+                      {item.name}
+                    </Text>
+                    <Text style={{ alignSelf: 'center' }} numberOfLines={1} >
+                      {item.price} $
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
         </ScrollView>
         <TouchableOpacity
           style={styles.addButton}
