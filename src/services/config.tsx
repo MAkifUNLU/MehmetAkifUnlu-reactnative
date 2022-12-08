@@ -1,6 +1,6 @@
 const config = {
     BASE_URL: 'https://upayments-studycase-api.herokuapp.com/api/',
-    options: {headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWYudW7Fn3U0NEBnbWFpbC5jb20iLCJnaXRodWIiOiJodHRwczovL2dpdGh1Yi5jb20vTUFraWZVTkxVIiwiaWF0IjoxNjY5ODE1NDIyLCJleHAiOjE2NzAyNDc0MjJ9.s1ibXPGJqJElAD_KyLdR3cqnuI2p8Gy8dqHksX6bBEs'}}
+    options: {headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFraWZ1bmx1QHByb3Rvbm1haWwuY29tIiwiZ2l0aHViIjoiaHR0cHM6Ly9naXRodWIuY29tL01Ba2lmVU5MVSIsImlhdCI6MTY3MDQ4MzgzOSwiZXhwIjoxNjcwOTE1ODM5fQ.46RbityfFwOiCScvZgv8LBnHTra6pQur6Ra7cA5JeE8'}}
   };
   
   export default config;
