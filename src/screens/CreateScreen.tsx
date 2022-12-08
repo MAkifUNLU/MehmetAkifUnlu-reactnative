@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, SafeAreaView, TextInputBase } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { fetchCategories } from '../store/actions/categoryActions';
 import { addProduct } from '../store/actions/productActions';
 import { useAppDispatch, useAppSelector } from '../store/store';
@@ -31,7 +31,7 @@ export const CreateScreen = ({ navigation }: { navigation: any }) => {
       description: description,
       avatar: link,
       category: categoryName,
-      developerEmail: 'akif.unlu44@gmail.com',
+      developerEmail: 'akifunlu@protonmail.com',
     };
     dispatch(addProduct(bodyParameters))
   }
